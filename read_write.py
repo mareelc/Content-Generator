@@ -1,15 +1,8 @@
 # Laura Maree
 
 import sys
-import gui
 import csv
 from verify_search import *
-
-def check_for_csv():
-    if len(sys.argv) > 1:
-        read_csv()
-    else:
-        gui.main()
 
 def read_csv():
     keywords = []
@@ -20,7 +13,6 @@ def read_csv():
                 keywords.append(word)
     keywords = keywords[1]
     keys = keywords.split(';')
-    print(keys)
     results = verify_keywords(keys[0], keys[1])
     write_csv(keys, results)
 
@@ -31,10 +23,3 @@ def write_csv(keywords, results):
         csv_writer.writerow(["input_keywords", "output_content"])
         row = [keys, results[1]]
         csv_writer.writerow(row)
-
-def main():
-    """Main function for http_server.py."""
-    check_for_csv()
-
-if __name__ == '__main__':
-    main()

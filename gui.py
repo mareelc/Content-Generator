@@ -3,6 +3,7 @@
 import tkinter as tk
 import tkinter.font as tkFont
 from verify_search import *
+from read_write import *
 
 class Content_Generator(tk.Frame):
     def __init__(self, root, *args, **kwargs):
@@ -12,11 +13,15 @@ class Content_Generator(tk.Frame):
         self.user_dir = self.directions(self.root)
         self.key1_input = tk.Entry(self.root)
         self.key2_input = tk.Entry(self.root)
-        self.button = tk.Button(self.root, text="Generate", command=self.get_display)
+        self.button = tk.Button(self.root, text="Generate", command=self.set_display)
         self.keyword_inputs = self.keyword_input(self.root, self.key1_input, self.key2_input, self.button)
         self.para_label = self.paragraph(self.root)
         self.textbox = tk.Text(root, height=13, width=47)
         self.textbox.grid(row=3, column=4, columnspan=4, rowspan=6)
+        self.clear1 = tk.Button(self.root, text="Clear", command=self.clear_keywords)
+        self.clear2 = tk.Button(self.root, text="Clear", command=self.clear_textbox)
+        self.clear1.grid(row=4, column=3)
+        self.clear2.grid(row=2, column=7)
 
     def title(self, root):
         fontStyle = tkFont.Font(size=40)
@@ -53,8 +58,8 @@ class Content_Generator(tk.Frame):
         paragraphLabel = tk.Label(root, text="Output: ", font=fontStyle2)
         paragraphLabel.grid(row=2, column=3, columnspan=2)
 
-    def get_display(self):
-        self.textbox.delete('1.0', tk.END)
+    def set_display(self):
+        self.clear_textbox()
         results = verify_keywords(self.key1_input.get(), self.key2_input.get())
         if not results:
             self.textbox.insert(tk.END, "Keyword Error")
@@ -66,6 +71,15 @@ class Content_Generator(tk.Frame):
             for x in range(1, len(results[1])):
                 self.textbox.insert(tk.END, results[1][x])
                 self.textbox.insert(tk.END, ", \n")
+        keywords = [self.key1_input.get(), self.key2_input.get()]
+        write_csv(keywords, results)
+
+    def clear_keywords(self):
+        self.key1_input.delete(0, tk.END)
+        self.key2_input.delete(0, tk.END)
+
+    def clear_textbox(self):
+        self.textbox.delete(1.0, tk.END)
 
 def main():
     """Main function for http_server.py."""
