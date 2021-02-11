@@ -34,7 +34,7 @@ class Content_Generator(tk.Frame):
                 "button. Paragraph\n " \
                 "will appear at the right of this \n" \
                 "page and will include both keywords. \n" \
-                "Results will be saved to paragraph.csv."
+                "Results will be saved to output.csv."
         text = tk.Label(root, text=words)
         text.grid(columnspan=4)
 
@@ -54,11 +54,18 @@ class Content_Generator(tk.Frame):
         paragraphLabel.grid(row=2, column=3, columnspan=2)
 
     def get(self):
+        self.textbox.delete('1.0', tk.END)
         results = verify_keywords(self.key1_input.get(), self.key2_input.get())
-        # self.textbox.insert(tk.END, "Disambiguation Page Found, Type ")
-        for x in results:
-            self.textbox.insert(tk.END, x)
-            self.textbox.insert(tk.END, ", \n")
+        if not results:
+            self.textbox.insert(tk.END, "Keyword Error")
+            return
+        if results[0]:
+            self.textbox.insert(tk.END, results[1])
+        else:
+            # self.textbox.insert(tk.END, "Disambiguation Page Found, Type ")
+            for x in range(1, len(results[1])):
+                self.textbox.insert(tk.END, results[1][x])
+                self.textbox.insert(tk.END, ", \n")
 
 def main():
     """Main function for http_server.py."""
