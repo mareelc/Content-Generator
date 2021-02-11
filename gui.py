@@ -2,7 +2,7 @@
 
 import tkinter as tk
 import tkinter.font as tkFont
-from open import *
+from verify_search import *
 
 class Content_Generator(tk.Frame):
     def __init__(self, root, *args, **kwargs):
@@ -12,7 +12,7 @@ class Content_Generator(tk.Frame):
         self.user_dir = self.directions(self.root)
         self.key1_input = tk.Entry(self.root)
         self.key2_input = tk.Entry(self.root)
-        self.button = tk.Button(self.root, text="Generate", command=self.get)
+        self.button = tk.Button(self.root, text="Generate", command=self.get_display)
         self.keyword_inputs = self.keyword_input(self.root, self.key1_input, self.key2_input, self.button)
         self.para_label = self.paragraph(self.root)
         self.textbox = tk.Text(root, height=13, width=47)
@@ -53,7 +53,7 @@ class Content_Generator(tk.Frame):
         paragraphLabel = tk.Label(root, text="Output: ", font=fontStyle2)
         paragraphLabel.grid(row=2, column=3, columnspan=2)
 
-    def get(self):
+    def get_display(self):
         self.textbox.delete('1.0', tk.END)
         results = verify_keywords(self.key1_input.get(), self.key2_input.get())
         if not results:
