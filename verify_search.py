@@ -1,6 +1,7 @@
 # Laura
 
 import wikipedia as wiki
+from bs4 import BeautifulSoup
 
 def verify_keywords(keyword1, keyword2):
     if not keyword1 or not keyword2:
@@ -13,19 +14,18 @@ def verify_keywords(keyword1, keyword2):
 
 def find_article(keyword1, keyword2):
     try:
-        article = wiki.page(keyword1, auto_suggest=False, redirect=True).content
-        return [True, search_article(article, keyword1, keyword2)]
+        article = wiki.page(keyword1, auto_suggest=False, redirect=True).html()
+        return [True, parse(article, keyword1, keyword2)]
     except wiki.exceptions.DisambiguationError as e:
         results = list(e.options)
         return [False, results]
 
-def search_article(article, keyword1, keyword2):
-    result = list(filter(lambda x: x != '', article.split('\n')))
+def parse(article, keyword1, keyword2):
+    soup = BeautifulSoup(article, 'html.parser')
+    text = [p.text for p in soup.find_all("p")]
     not_found = False
-    for x in result:
-        if keyword1.lower() in x.lower() and keyword2.lower() in x.lower():
+    for x in text:
+        if (keyword1.lower() in x.lower()) and (keyword2.lower() in x.lower()):
             return x
     return not_found
-
-
 

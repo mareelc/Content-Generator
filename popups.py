@@ -43,7 +43,7 @@ class Popup(tk.Frame):
         button = tk.Button(self.top, text="Search!", command=lambda: var.set(self.combo_val()))
         button.pack()
         button.wait_variable(var)
-        self.top.destroy()
+        self.close()
         return var.get()
 
     def combo_val(self):
