@@ -5,9 +5,13 @@ import wikipedia as wiki
 def verify_keywords(keyword1, keyword2):
     if not keyword1 or not keyword2:
         return "keywords invalid"
+    if " " in keyword1 or " " in keyword2:
+        return "keywords invalid"
     if wiki.search(keyword1, suggestion=False) == []:
         return "not found"
+    return find_article(keyword1, keyword2)
 
+def find_article(keyword1, keyword2):
     try:
         article = wiki.page(keyword1, auto_suggest=False, redirect=True).content
         return [True, search_article(article, keyword1, keyword2)]

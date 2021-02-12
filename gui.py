@@ -61,24 +61,34 @@ class Content_Generator(tk.Frame):
         paragraphLabel.grid(row=2, column=3, columnspan=2)
 
     def set_display(self):
-        popup = Popup(self.root)
         self.clear_textbox()
         results = verify_keywords(self.key1_input.get(), self.key2_input.get())
+        self.check_output(results)
+
+    def check_output(self, results):
+        popup = Popup(self.root)
         if results == "keywords invalid":
             popup.key_err()
             return
         if results == "not found":
             popup.not_found()
             return
+        if not results[1]:
+            popup.para_not_found()
+            return
         if results[0]:
             self.textbox.insert(tk.END, results[1])
+            keywords = [self.key1_input.get(), self.key2_input.get()]
+            write_csv(keywords, results)
+            popup.close()
+            return
         else:
-            popup.key_disambig(results)
-            # for x in range(1, len(results[1])):
-            #     self.textbox.insert(tk.END, results[1][x])
-            #     self.textbox.insert(tk.END, ", \n")
-        keywords = [self.key1_input.get(), self.key2_input.get()]
-        write_csv(keywords, results)
+            new = popup.key_disambig(results[1])
+            input2 = self.key2_input.get()
+            new_results = find_article(new, input2)
+            self.check_output(new_results)
+            return
+
 
     def clear_keywords(self):
         self.key1_input.delete(0, tk.END)
@@ -88,7 +98,7 @@ class Content_Generator(tk.Frame):
         self.textbox.delete(1.0, tk.END)
 
 def main():
-    """Main function for http_server.py."""
+    """Main function for gui.py."""
     root = tk.Tk()
     app = Content_Generator(root)
     root.title("Content Generator")
