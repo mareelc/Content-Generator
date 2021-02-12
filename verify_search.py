@@ -4,7 +4,10 @@ import wikipedia as wiki
 
 def verify_keywords(keyword1, keyword2):
     if not keyword1 or not keyword2:
-        return False
+        return "keywords invalid"
+    if wiki.search(keyword1, suggestion=False) == []:
+        return "not found"
+
     try:
         article = wiki.page(keyword1, auto_suggest=False, redirect=True).content
         return [True, search_article(article, keyword1, keyword2)]

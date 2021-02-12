@@ -4,10 +4,11 @@ import tkinter as tk
 import tkinter.font as tkFont
 from verify_search import *
 from read_write import *
+from popups import *
 
 class Content_Generator(tk.Frame):
-    def __init__(self, root, *args, **kwargs):
-        tk.Frame.__init__(self, root, *args, **kwargs)
+    def __init__(self, root):
+        tk.Frame.__init__(self, root)
         self.root = root
         self.title_label = self.title(self.root)
         self.user_dir = self.directions(self.root)
@@ -23,9 +24,10 @@ class Content_Generator(tk.Frame):
         self.clear1.grid(row=4, column=3)
         self.clear2.grid(row=2, column=7)
 
+
     def title(self, root):
         fontStyle = tkFont.Font(size=40)
-        labelExample = tk.Label(root, text="        Content Generator         ", font=fontStyle, fg="white", bg="grey")
+        labelExample = tk.Label(root, text="        Content Generator         ", font=fontStyle, fg="grey95", bg="grey")
         labelExample.grid(columnspan=9)
         tk.Label(root, text=" ").grid(row=1)
 
@@ -59,18 +61,22 @@ class Content_Generator(tk.Frame):
         paragraphLabel.grid(row=2, column=3, columnspan=2)
 
     def set_display(self):
+        popup = Popup(self.root)
         self.clear_textbox()
         results = verify_keywords(self.key1_input.get(), self.key2_input.get())
-        if not results:
-            self.textbox.insert(tk.END, "Keyword Error")
+        if results == "keywords invalid":
+            popup.key_err()
+            return
+        if results == "not found":
+            popup.not_found()
             return
         if results[0]:
             self.textbox.insert(tk.END, results[1])
         else:
-            # self.textbox.insert(tk.END, "Disambiguation Page Found, Type ")
-            for x in range(1, len(results[1])):
-                self.textbox.insert(tk.END, results[1][x])
-                self.textbox.insert(tk.END, ", \n")
+            popup.key_disambig(results)
+            # for x in range(1, len(results[1])):
+            #     self.textbox.insert(tk.END, results[1][x])
+            #     self.textbox.insert(tk.END, ", \n")
         keywords = [self.key1_input.get(), self.key2_input.get()]
         write_csv(keywords, results)
 
