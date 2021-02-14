@@ -5,7 +5,8 @@
 To run on Command Line (windows):
 <ol>
 <li>Navigate to directory with content_generator.py on command line.</li>
-<li>Install wikipedia module by typing: pip install wikipedia.</li>
+<li>Install wikipedia module by typing: pip install wikipedia (If not already installed).</li>
+<li>Install beautifulsoup module by typing: pip install beautifulsoup4 (If not already installed).</li>
 <li>To run without an input csv: 
 <ul>Type: python content_generator.py</ul>
 <ul>Hit enter and the GUI will open and you can enter 2 keywords to find a wikipedia article (from keyword 1) 
