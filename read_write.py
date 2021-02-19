@@ -7,14 +7,11 @@ import csv
 from verify_search import *
 
 def read_csv():
-    """
-    Read csv file from command line. Immediately
+    """Read csv file from command line. Immediately
     call to find wiki paragraph with both keywords
-    and write to file.
-    :return: None.
-    """
+    and write to file."""
     keywords = []
-    # Read file and save keywords.
+
     with open(sys.argv[1], newline="") as file:
         read = csv.reader(file, delimiter=' ', quotechar='|')
         for row in read:
@@ -22,11 +19,7 @@ def read_csv():
                 keywords.append(word)
     keywords = keywords[1]
     keys = keywords.split(';')
-
-    # Call to verify keys and search wiki.
-    results = verify_keywords(keys[0], keys[1])
-    # Write results
-    write_csv(keys, results)
+    write_csv(keys, verify_keywords(keys[0], keys[1]))
 
 def write_csv(keywords, results):
     """Write results to output.csv."""
@@ -40,8 +33,7 @@ def write_csv(keywords, results):
         if not results[1]:
             results[1] = "Paragraph not found."
         if type(results) == str:
-            row = [keys, results]
+            csv_writer.writerow([keys, results])
         # Results for paragraph/disambig.
         else:
-            row = [keys, results[1]]
-        csv_writer.writerow(row)
+            csv_writer.writerow([keys, results[1]])

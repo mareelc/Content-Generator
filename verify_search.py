@@ -4,51 +4,36 @@
 
 import wikipedia as wiki
 from bs4 import BeautifulSoup
+import re
 
 def verify_keywords(keyword1, keyword2):
     """Check for valid keywords."""
-    # Empty input.
-    if not keyword1 or not keyword2:
-        return "keywords invalid"
+    if not keyword1 or not keyword2 or " " in keyword1 or " " in keyword2:
+        return ["err", "Keywords invalid. \n Try again!"]
+    elif wiki.search(keyword1, suggestion=False) == []:
+        return ["err", "Article not found. \n Try again!"]
+    return find_article(keyword1, keyword1, keyword2)
 
-    # Multiple keywords or spaces.
-    if " " in keyword1 or " " in keyword2:
-        return "keywords invalid"
-
-    # No article found.
-    if wiki.search(keyword1, suggestion=False) == []:
-        return "not found"
-
-    # Call to find_article to process.
-    return find_article(keyword1, keyword2)
-
-def find_article(keyword1, keyword2):
-    """
-    Save article HTML and continue to parse.
+def find_article(article, keyword1, keyword2):
+    """Save article HTML and continue to parse.
     If Disambiguation Error, return list of
-    article options to GUI.
-    :param keyword1: input key 1
-    :param keyword2: input key 2
-    :return: Parsed article or disambiguation error list.
-    """
+    article options to GUI."""
     try:
-        article = wiki.page(keyword1, auto_suggest=False, redirect=True).html()
-        return [True, parse(article, keyword1, keyword2)]
+        found_article = wiki.page(article, auto_suggest=False, redirect=True).html()
+        return [True, get_paragraphs(found_article, keyword1.lower(), keyword2.lower())]
     except wiki.exceptions.DisambiguationError as e:
-        results = list(e.options)
-        return [False, results]
+        return [False, list(e.options)]
 
-def parse(article, keyword1, keyword2):
-    """Parse article HTML and search for paragraph with keywords."""
+def get_paragraphs(article, keyword1, keyword2):
+    """Using BeautifulSoup, get all paragraphs from html."""
     soup = BeautifulSoup(article, 'html.parser')
-
-    # Save all <p> tag text.
     text = [p.text for p in soup.find_all("p")]
-    not_found = False
+    return search_paragraphs(text, keyword1, keyword2)
 
-    # Search each paragraph for both keywords and return first, else False.
-    for x in text:
-        if (keyword1.lower() in x.lower()) and (keyword2.lower() in x.lower()):
-            return x
-    return not_found
-
+def search_paragraphs(text, keyword1, keyword2):
+    """Search each paragraph for both keywords."""
+    for string in text:
+        if re.search(r'\b' + keyword1 + r'\b', string.lower()) and \
+                re.search(r'\b' + keyword2 + r'\b', string.lower()):
+            return string
+    return False

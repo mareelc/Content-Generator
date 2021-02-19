@@ -17,39 +17,23 @@ class Popup(tk.Frame):
         self.top.geometry("225x100")
         self.drop_down = ttk.Combobox(self.top, width=20, textvariable=tk.StringVar())
         self.top.title("Error!")
-        self.new_key = ""
 
-    def key_err(self):
+    def key_err(self, text):
         """Keywords invalid popup constructor."""
-        title = tk.Label(self.top, text="Invalid Keywords!\n Try Again!")
-        title.pack()
-        button = tk.Button(self.top, text="Try Again!", command=self.top.destroy)
-        button.pack()
-
-    def not_found(self):
-        """Article not found popup constructor."""
-        title = tk.Label(self.top, text="Article Not Found!")
-        title.pack()
-        button = tk.Button(self.top, text="Try Again!", command=self.top.destroy)
-        button.pack()
-
-    def para_not_found(self):
-        """Paragraph with both keywords not found popup constructor."""
-        title = tk.Label(self.top, text="Paragraph with Keyword 1\n and Keyword2 not Found!")
-        title.pack()
-        button = tk.Button(self.top, text="Try Again!", command=self.top.destroy)
-        button.pack()
+        if not text:
+            text = "Paragraph with Keyword 1\n and Keyword2 not Found!"
+        tk.Label(self.top, text=text).pack()
+        tk.Button(self.top, text="Try Again!", command=self.top.destroy).pack()
 
     def key_disambig(self, results):
         """Disambiguation error popup constructor."""
-        title = tk.Label(self.top, text="Disambiguation Error:\n Choose an Article to \n Redirect to: ")
-        title.pack()
+        tk.Label(self.top, text="Disambiguation Error:\n Choose an Article to \n Redirect to: ").pack()
 
-        # Create drop down box with values from disambig error results.
+        # Create drop down box disambig values.
         self.drop_down['values'] = results
         self.drop_down.pack()
 
-        # On click, button must call to combo_val to save new variable.
+        # On click, button call to combo_val to save new article.
         var = tk.StringVar()
         button = tk.Button(self.top, text="Search!", command=lambda: var.set(self.combo_val()))
         button.pack()
@@ -59,10 +43,9 @@ class Popup(tk.Frame):
 
     def combo_val(self):
         """Save selected new variable in drop down on button click."""
-        self.new_key = self.drop_down.get()
-        return self.new_key
+        return self.drop_down.get()
 
     def close(self):
         """Close popup."""
-        self.top.destroy()
-        return
+        return self.top.destroy()
+
