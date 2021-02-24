@@ -1,13 +1,13 @@
 # Laura Maree
-# Verify keys/Find Article/Parse
-# 2.12.2021
+# verify_search.py
+# 2.24.2021
 
 import wikipedia as wiki
 from bs4 import BeautifulSoup
 import re
 
 def verify_keywords(keyword1, keyword2):
-    """Check for valid keywords."""
+    """Check for valid keywords and article."""
     if not keyword1 or not keyword2 or " " in keyword1 or " " in keyword2:
         return ["err", "Keywords invalid. \n Try again!"]
     elif wiki.search(keyword1, suggestion=False) == []:

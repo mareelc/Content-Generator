@@ -1,12 +1,13 @@
 # Laura Maree
-# GUI
-# 2.12.2021
+# gui.py
+# 2.24.2021
 
 import tkinter as tk
 import tkinter.font as tkFont
 from verify_search import *
 from read_write import *
 from popups import *
+import listen
 
 class Content_Generator(tk.Frame):
     """Class for Content Generator GUI main window."""
@@ -24,6 +25,9 @@ class Content_Generator(tk.Frame):
         self.textbox.grid(row=3, column=4, columnspan=4, rowspan=6)
         self.clear1 = tk.Button(self.root, text="Clear", command=self.clear_keywords).grid(row=4, column=3)
         self.clear2 = tk.Button(self.root, text="Clear", command=self.clear_textbox).grid(row=2, column=7)
+
+    def keyword_listen(self):
+        listen.listening()
 
     def title(self, root):
         """Title constructor."""
@@ -66,10 +70,8 @@ class Content_Generator(tk.Frame):
         self.check_output(results)
 
     def check_output(self, results):
-        """
-        Determine output (popup error or text) by
-        results from
-        """
+        """Determine output (popup error or text) from
+        results of article/paragraph search."""
         # Instantiate Popup class for errors in results.
         popup = Popup(self.root)
         if results[0] == "err" or not results[1]:
@@ -80,13 +82,16 @@ class Content_Generator(tk.Frame):
         return self.disambig_err(results, popup)
 
     def valid_results(self, results, popup):
-        """"""
+        """Insert valid results into gui textbox and
+        write to csv."""
         self.textbox.insert(tk.END, results[1])
         keywords = [self.key1_input.get(), self.key2_input.get()]
         write_csv(keywords, results)
         popup.close()
 
     def disambig_err(self, results, popup):
+        """Handle disambiguation error with popup and
+        verify new selection."""
         new = popup.key_disambig(results[1])
         new_results = find_article(new, self.key1_input.get(), self.key2_input.get())
         self.check_output(new_results)
@@ -109,6 +114,7 @@ def main():
     root.configure(bg="grey95")
     root.grid_columnconfigure(4, minsize=90)
     app.mainloop()
+
 
 if __name__ == '__main__':
     main()

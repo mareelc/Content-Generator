@@ -1,10 +1,17 @@
 # Laura Maree
-# Content_Generator.py
-# 2.12.2021
+# content_generator.py
+# 2.24.2021
 
 import sys
 import gui
 import read_write
+import listen
+import send
+
+def check_for_comms():
+    """Check for incoming communication from Life Generator."""
+    paragraph = listen.listening()
+    return paragraph
 
 def check_for_csv():
     """Check if csv file present at start."""
@@ -17,6 +24,12 @@ def check_for_csv():
 
 def main():
     """Main function for http_server.py."""
+    # If incoming communication, send second request.
+    paragraph = check_for_comms()
+    if paragraph:
+        send.sending()
+        return
+
     check_for_csv()
 
 if __name__ == '__main__':
