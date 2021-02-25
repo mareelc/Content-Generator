@@ -32,5 +32,5 @@ def main():
 
     check_for_csv()
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

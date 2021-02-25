@@ -13,7 +13,7 @@ class Popup(tk.Frame):
         win_x = root_x + 300
         win_y = root_y + 100
         self.top = tk.Toplevel(root)
-        self.top.geometry(f'+{win_x}+{win_y}')
+        self.top.geometry(f"+{win_x}+{win_y}")
         self.top.geometry("225x100")
         self.drop_down = ttk.Combobox(self.top, width=20, textvariable=tk.StringVar())
         self.top.title("Error!")
@@ -30,7 +30,7 @@ class Popup(tk.Frame):
         tk.Label(self.top, text="Disambiguation Error:\n Choose an Article to \n Redirect to: ").pack()
 
         # Create drop down box disambig values.
-        self.drop_down['values'] = results
+        self.drop_down["values"] = results
         self.drop_down.pack()
 
         # On click, button call to combo_val to save new article.

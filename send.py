@@ -12,7 +12,7 @@ def sending():
 
     #Build string for Life Generator
     keys = "toys, " + random_category + ", " + str(random.randint(1, 10))
-    connection = Client(('localhost', 5000), authkey=b'password')
+    connection = Client(("localhost", 5000), authkey=b"password")
     connection.send(keys)
     message = connection.recv()
     print(message)
@@ -21,7 +21,7 @@ def sending():
 def read_random():
     """Generate random category to feed to Life Generator."""
     # Read amazon csv and choose category to feed.
-    with open('amazon_co-ecommerce_sample.csv', encoding='UTF-8') as f:
+    with open("amazon_co-ecommerce_sample.csv", encoding="UTF-8") as f:
         reader = csv.reader(f)
         chosen_row = random.choice(list(reader))
         split_line = chosen_row[8].split(" > ")

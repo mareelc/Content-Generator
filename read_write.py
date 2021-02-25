@@ -13,7 +13,7 @@ def read_csv():
     keywords = []
 
     with open(sys.argv[1], newline="") as file:
-        read = csv.reader(file, delimiter=' ', quotechar='|')
+        read = csv.reader(file, delimiter=" ", quotechar="|")
         for row in read:
             for word in row:
                 keywords.append(word)
@@ -23,7 +23,7 @@ def read_csv():
 
 def write_csv(keywords, results):
     """Write results to output.csv."""
-    with open('output.csv', 'w', encoding="utf-8") as file:
+    with open("output.csv", "w", encoding="utf-8") as file:
         csv_writer = csv.writer(file)
         keys = ';'.join(keywords)
         # Column headers

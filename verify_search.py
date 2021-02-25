@@ -26,14 +26,14 @@ def find_article(article, keyword1, keyword2):
 
 def get_paragraphs(article, keyword1, keyword2):
     """Using BeautifulSoup, get all paragraphs from html."""
-    soup = BeautifulSoup(article, 'html.parser')
+    soup = BeautifulSoup(article, "html.parser")
     text = [p.text for p in soup.find_all("p")]
     return search_paragraphs(text, keyword1, keyword2)
 
 def search_paragraphs(text, keyword1, keyword2):
     """Search each paragraph for both keywords."""
     for string in text:
-        if re.search(r'\b' + keyword1 + r'\b', string.lower()) and \
-                re.search(r'\b' + keyword2 + r'\b', string.lower()):
+        if re.search(r"\b" + keyword1 + r"\b", string.lower()) and \
+                re.search(r"\b" + keyword2 + r"\b", string.lower()):
             return string
     return False

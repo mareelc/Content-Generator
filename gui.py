@@ -9,7 +9,7 @@ from read_write import *
 from popups import *
 import listen
 
-class Content_Generator(tk.Frame):
+class GUI(tk.Frame):
     """Class for Content Generator GUI main window."""
     def __init__(self, root):
         tk.Frame.__init__(self, root)
@@ -25,9 +25,6 @@ class Content_Generator(tk.Frame):
         self.textbox.grid(row=3, column=4, columnspan=4, rowspan=6)
         self.clear1 = tk.Button(self.root, text="Clear", command=self.clear_keywords).grid(row=4, column=3)
         self.clear2 = tk.Button(self.root, text="Clear", command=self.clear_textbox).grid(row=2, column=7)
-
-    def keyword_listen(self):
-        listen.listening()
 
     def title(self, root):
         """Title constructor."""
@@ -108,7 +105,7 @@ class Content_Generator(tk.Frame):
 def main():
     """Main function for gui.py."""
     root = tk.Tk()
-    app = Content_Generator(root)
+    app = GUI(root)
     root.title("Content Generator")
     root.geometry("685x360")
     root.configure(bg="grey95")
