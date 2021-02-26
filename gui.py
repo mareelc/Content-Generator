@@ -7,7 +7,6 @@ import tkinter.font as tkFont
 from verify_search import *
 from read_write import *
 from popups import *
-import listen
 
 class GUI(tk.Frame):
     """Class for Content Generator GUI main window."""
