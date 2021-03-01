@@ -1,6 +1,6 @@
 # Laura Maree
 # send.py
-# 2.24.2021
+# 2.28.2021
 
 from multiprocessing.connection import Client
 import random
@@ -13,10 +13,13 @@ def sending():
     #Build string for Life Generator
     keys = "toys, " + random_category + ", " + str(random.randint(1, 10))
     connection = Client(("localhost", 5000), authkey=b"password")
+    print("\nsending message")
+    print(keys)
     connection.send(keys)
     message = connection.recv()
+    print("\ndata received")
     print(message)
-    connection.send('close')
+    connection.send("close")
 
 def read_random():
     """Generate random category to feed to Life Generator."""

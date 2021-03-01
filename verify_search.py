@@ -1,6 +1,6 @@
 # Laura Maree
 # verify_search.py
-# 2.24.2021
+# 2.28.2021
 
 import wikipedia as wiki
 from bs4 import BeautifulSoup

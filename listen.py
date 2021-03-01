@@ -1,6 +1,6 @@
 # Laura Maree
 # listen.py
-# 2.24.2021
+# 2.28.2021
 
 import verify_search
 from multiprocessing.connection import Listener
@@ -20,10 +20,17 @@ def listening():
             return
         while True:
             message = connection.recv()
+            print('\nlistening message')
+            print(message)
             if message == "close":
                 connection.close()
                 return paragraph
             else:
                 paragraph = verify_search.verify_keywords(message[0], message[1])
+                print('\nresponse to Life Generator')
+                print(paragraph[1])
                 connection.send(paragraph)
+
+
+
 

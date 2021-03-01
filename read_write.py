@@ -1,6 +1,6 @@
 # Laura Maree
 # read_write.py
-# 2.24.2021
+# 2.28.2021
 
 import sys
 import csv
