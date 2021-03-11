@@ -1,6 +1,6 @@
 # Laura Maree
 # gui.py
-# 2.28.2021
+# 3.10.2021
 
 import tkinter as tk
 import tkinter.font as tkFont
@@ -16,7 +16,7 @@ class GUI(tk.Frame):
         self.title_label = self.title()
         self.user_dir = tk.Label(self.root, text="Generate a paragraph from Wikipedia!")
         self.user_dir.grid(row=3, columnspan=4)
-        self.dir_button = tk.Button(self.root, text="Directions", command=self.show_directions)
+        self.dir_button = tk.Button(self.root, text="Show Directions", command=self.show_directions)
         self.dir_button.grid(row=4, column=1)
         self.key1_input = tk.Entry(self.root)
         self.key2_input = tk.Entry(self.root)
@@ -45,15 +45,15 @@ class GUI(tk.Frame):
                 "will appear at the right of this \n" \
                 "page and will include both keywords. \n" \
                 "Results will be saved to output.csv."
-        self.user_dir['text'] = words
-        self.dir_button['text'] = "Hide Directions"
-        self.dir_button['command'] = self.hide_directions
+        self.user_dir["text"] = words
+        self.dir_button["text"] = "Hide Directions"
+        self.dir_button["command"] = self.hide_directions
 
     def hide_directions(self):
         """Hide directions for user."""
-        self.user_dir['text'] = "Generate a paragraph from Wikipedia!"
-        self.dir_button['text'] = "Directions"
-        self.dir_button['command'] = self.show_directions
+        self.user_dir["text"] = "Generate a paragraph from Wikipedia!"
+        self.dir_button["text"] = "Show Directions"
+        self.dir_button["command"] = self.show_directions
 
     def keyword_input(self):
         """Keyword input constructor."""

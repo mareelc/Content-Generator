@@ -1,6 +1,6 @@
 # Laura Maree
 # send.py
-# 2.28.2021
+# 3.10.2021
 
 from multiprocessing.connection import Client
 import random

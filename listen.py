@@ -1,6 +1,6 @@
 # Laura Maree
 # listen.py
-# 2.28.2021
+# 3.10.2021
 
 import verify_search
 from multiprocessing.connection import Listener
@@ -13,7 +13,7 @@ paragraph = ""
 def listening():
     """Listens for data from Life Generator."""
     while running:
-        # Listen for 6s for Life Generator data before opening GUI.
+        # Listen for 3s for Life Generator data before opening GUI.
         try:
             connection = listener.accept()
         except:
@@ -26,11 +26,14 @@ def listening():
                 connection.close()
                 return paragraph
             else:
-                paragraph = verify_search.verify_keywords(message[0], message[1])
-                print('\nresponse to Life Generator')
-                print(paragraph[1])
-                connection.send(paragraph)
+                send_paragraph(connection, message)
 
 
+def send_paragraph(connection, message):
+    """Send paragraph to Life Generator."""
+    paragraph = verify_search.verify_keywords(message[0], message[1])
+    print('\nresponse to Life Generator')
+    print(paragraph[1])
+    connection.send(paragraph)
 
 
