@@ -6,7 +6,7 @@ import verify_search
 from multiprocessing.connection import Listener
 
 listener = Listener(("localhost", 4000), authkey=b"password")
-listener._listener._socket.settimeout(6)
+listener._listener._socket.settimeout(3)
 running = True
 paragraph = ""
 

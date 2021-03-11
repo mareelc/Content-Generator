@@ -1,5 +1,5 @@
 # Laura Maree
-# popups.py
+# error.py
 # 2.28.2021
 
 import tkinter as tk

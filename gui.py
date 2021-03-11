@@ -13,30 +13,31 @@ class GUI(tk.Frame):
     def __init__(self, root):
         tk.Frame.__init__(self, root)
         self.root = root
-        self.title_label = self.title(self.root)
-        self.user_dir = self.directions(self.root)
+        self.title_label = self.title()
+        self.user_dir = tk.Label(self.root, text="Generate a paragraph from Wikipedia!")
+        self.user_dir.grid(row=3, columnspan=4)
+        self.dir_button = tk.Button(self.root, text="Directions", command=self.show_directions)
+        self.dir_button.grid(row=4, column=1)
         self.key1_input = tk.Entry(self.root)
         self.key2_input = tk.Entry(self.root)
-        self.button = tk.Button(self.root, text="Generate", command=self.set_display)
-        self.keyword_inputs = self.keyword_input(self.root)
-        self.para_label = self.paragraph(self.root)
+        self.gen_button = tk.Button(self.root, text="Generate", command=self.set_display)
+        self.keyword_inputs = self.keyword_input()
         self.textbox = tk.Text(root, height=13, width=47)
         self.textbox.grid(row=3, column=4, columnspan=4, rowspan=6)
         self.clear1 = tk.Button(self.root, text="Clear", command=self.clear_keywords).grid(row=4, column=3)
         self.clear2 = tk.Button(self.root, text="Clear", command=self.clear_textbox).grid(row=2, column=7)
 
-    def title(self, root):
-        """Title constructor."""
-        fontStyle = tkFont.Font(size=40)
-        labelExample = tk.Label(root, text="        Content Generator         ",\
-                font=fontStyle, fg="grey95", bg="grey")
+    def title(self):
+        """Title and subtitle constructor."""
+        labelExample = tk.Label(self.root, text="        Content Generator         ",\
+                font=tkFont.Font(size=40), fg="grey95", bg="grey")
         labelExample.grid(columnspan=9)
-        tk.Label(root, text=" ").grid(row=1)
+        tk.Label(self.root, text=" ").grid(row=1)
+        tk.Label(self.root, text=" Input: ", font=tkFont.Font(size=20)).grid(row=2, columnspan=2)
+        tk.Label(self.root, text="Output: ", font=tkFont.Font(size=20)).grid(row=2, column=3, columnspan=2)
 
-    def directions(self, root):
-        """Directions constructor."""
-        fontStyle2 = tkFont.Font(size=20)
-        tk.Label(root, text=" Input: ", font=fontStyle2).grid(row=2, columnspan=2)
+    def show_directions(self):
+        """Show directions for user."""
         words = "Generate a paragraph of text from Wikipedia \n" \
                 "by entering two keywords below and" \
                 "\n clicking the Generate " \
@@ -44,20 +45,23 @@ class GUI(tk.Frame):
                 "will appear at the right of this \n" \
                 "page and will include both keywords. \n" \
                 "Results will be saved to output.csv."
-        tk.Label(root, text=words).grid(columnspan=4)
+        self.user_dir['text'] = words
+        self.dir_button['text'] = "Hide Directions"
+        self.dir_button['command'] = self.hide_directions
 
-    def keyword_input(self, root):
+    def hide_directions(self):
+        """Hide directions for user."""
+        self.user_dir['text'] = "Generate a paragraph from Wikipedia!"
+        self.dir_button['text'] = "Directions"
+        self.dir_button['command'] = self.show_directions
+
+    def keyword_input(self):
         """Keyword input constructor."""
-        tk.Label(root, text="Keyword 1").grid(row=5, column=1)
+        tk.Label(self.root, text="Keyword 1").grid(row=5, column=1)
         self.key1_input.grid(row=5, column=2)
-        tk.Label(root, text="Keyword 2").grid(row=6, column=1)
+        tk.Label(self.root, text="Keyword 2").grid(row=6, column=1)
         self.key2_input.grid(row=6, column=2)
-        self.button.grid(row=8, columnspan=4)
-
-    def paragraph(self, root):
-        """Paragraph output constructor."""
-        fontStyle2 = tkFont.Font(size=20)
-        tk.Label(root, text="Output: ", font=fontStyle2).grid(row=2, column=3, columnspan=2)
+        self.gen_button.grid(row=8, columnspan=4)
 
     def set_display(self):
         """Clear textbox and call to wiki for results."""
