@@ -31,5 +31,5 @@ To communicate with Life Generator:
 <li>Navigate to directory with life-generator.py on other command line.</li>
 <li>Type: python3 content_generator.py and hit enter.</li>
 <li>Type: python3 life-generator.py and hit enter.</li>
-<li>Programs with interact and request/response messages will print to console.</li>
+<li>Programs will interact and request/response messages will print to console.</li>
 </ol>
