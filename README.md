@@ -24,6 +24,9 @@ that includes a paragraph that contains both keywords.</ul>
 <ul>The output (paragraph or error message) will be saved to output.csv in the same directory.</ul>
 </li></ol>
 
+![alt-text](https://github.com/heinl11/Content-Generator/blob/main/Content-Generator.gif)
+
+
 To communicate with Life Generator: 
 <ol>
 <li>Open two command line interfaces.</li>
