@@ -23,6 +23,8 @@ that includes a paragraph that contains both keywords.</ul>
 <ul>The GUI will not open.</ul>
 <ul>The output (paragraph or error message) will be saved to output.csv in the same directory.</ul>
 </li></ol>
+![Alt Text](https://github.com/heinl11/Content-Generator/blob/main/Content-Generator.gif)
+
 
 To communicate with Life Generator: 
 <ol>
