@@ -23,7 +23,7 @@ def check_for_csv():
         gui.main()
 
 def main():
-    """Main function for http_server.py."""
+    """Main function for content_generator.py."""
     # If incoming communication, send second request.
     paragraph = check_for_comms()
     if paragraph:
