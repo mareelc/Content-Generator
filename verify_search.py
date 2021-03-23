@@ -1,4 +1,4 @@
-# Laura Maree
+# heinl11
 # verify_search.py
 # 3.10.2021
 
