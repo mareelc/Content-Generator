@@ -1,4 +1,4 @@
-# Laura Maree
+# heinl11
 # content_generator.py
 # 3.10.2021
 
